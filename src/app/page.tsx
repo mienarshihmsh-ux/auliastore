@@ -1,15 +1,31 @@
+
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CartProvider } from '@/components/CartContext';
 import { Navigation, PageView } from '@/components/Navigation';
 import { HomeView, ProductsView, GalleryView, AboutView, ContactView } from '@/components/Views';
 import { CartModal } from '@/components/CartModal';
-import { Instagram, Facebook, Youtube, Send } from 'lucide-react';
+import { Instagram, Facebook, Youtube, Send, Music } from 'lucide-react';
+import { FooterData } from '@/lib/types';
 
-export default function AuraModaApp() {
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwgOMnVkWK5q3Cavb3o-_okrpK0P5qqngA8r1JsMtv56aGxvb7wjRYOBQkVfSyXP-fIHA/exec';
+
+export default function FashionStoreApp() {
   const [activePage, setActivePage] = useState<PageView>('home');
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [footer, setFooter] = useState<FooterData>({ storeName: "FashionStore" });
+
+  useEffect(() => {
+    fetch(`${APPS_SCRIPT_URL}?type=footer`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.footer) {
+          setFooter(data.footer);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const renderView = () => {
     switch (activePage) {
@@ -24,77 +40,51 @@ export default function AuraModaApp() {
 
   return (
     <CartProvider>
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col bg-gradient-to-br from-[#667eea] to-[#764ba2]">
         <Navigation 
           activePage={activePage} 
           setActivePage={setActivePage} 
           onOpenCart={() => setIsCartOpen(true)}
+          storeName={footer.storeName}
         />
 
         <main className="flex-1 container mx-auto px-4 pt-32 pb-16">
           {renderView()}
         </main>
 
-        <footer className="bg-card border-t border-border pt-20 pb-12 px-4">
+        <footer className="bg-[#2c3e50] text-white py-16 px-4">
           <div className="container mx-auto max-w-7xl">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-              <div className="space-y-6">
-                <div className="text-2xl font-headline font-bold tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                  AURAMODA
-                </div>
-                <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
-                  Sebuah laboratorium high-fashion tempat desain cerdas bertemu kemewahan artisan. Dibuat untuk avant-garde global.
-                </p>
-                <div className="flex gap-4">
-                  {[Instagram, Facebook, Youtube, Send].map((Icon, i) => (
-                    <a key={i} href="#" className="h-10 w-10 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all">
-                      <Icon size={18} />
-                    </a>
-                  ))}
-                </div>
+            <div className="flex flex-col items-center text-center space-y-8">
+              <h3 className="text-3xl font-headline font-bold flex items-center gap-3">
+                <Package className="text-[#667eea]" /> {footer.storeName}
+              </h3>
+              
+              <div className="flex gap-6">
+                {footer.facebook && (
+                  <a href={footer.facebook} target="_blank" rel="noopener noreferrer" className="h-12 w-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#667eea] transition-all">
+                    <Facebook size={24} />
+                  </a>
+                )}
+                {footer.instagram && (
+                  <a href={footer.instagram} target="_blank" rel="noopener noreferrer" className="h-12 w-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#667eea] transition-all">
+                    <Instagram size={24} />
+                  </a>
+                )}
+                {footer.youtube && (
+                  <a href={footer.youtube} target="_blank" rel="noopener noreferrer" className="h-12 w-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#667eea] transition-all">
+                    <Youtube size={24} />
+                  </a>
+                )}
+                {footer.tiktok && (
+                  <a href={footer.tiktok} target="_blank" rel="noopener noreferrer" className="h-12 w-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#667eea] transition-all">
+                    <Music size={24} />
+                  </a>
+                )}
               </div>
 
-              <div className="space-y-6">
-                <h4 className="font-headline font-bold text-lg uppercase tracking-widest text-foreground">Eksplorasi</h4>
-                <ul className="space-y-3 text-sm text-muted-foreground">
-                  <li><button onClick={() => setActivePage('products')} className="hover:text-primary transition-colors">Katalog Terbaru</button></li>
-                  <li><button onClick={() => setActivePage('gallery')} className="hover:text-primary transition-colors">Etos Visual</button></li>
-                  <li><a href="#" className="hover:text-primary transition-colors">Keanggotaan</a></li>
-                  <li><a href="#" className="hover:text-primary transition-colors">Kartu Hadiah</a></li>
-                </ul>
-              </div>
-
-              <div className="space-y-6">
-                <h4 className="font-headline font-bold text-lg uppercase tracking-widest text-foreground">Bantuan</h4>
-                <ul className="space-y-3 text-sm text-muted-foreground">
-                  <li><button onClick={() => setActivePage('contact')} className="hover:text-primary transition-colors">Layanan Concierge</button></li>
-                  <li><a href="#" className="hover:text-primary transition-colors">Lacak Pesanan</a></li>
-                  <li><a href="#" className="hover:text-primary transition-colors">Etika Privasi</a></li>
-                  <li><a href="#" className="hover:text-primary transition-colors">Keberlanjutan</a></li>
-                </ul>
-              </div>
-
-              <div className="space-y-6">
-                <h4 className="font-headline font-bold text-lg uppercase tracking-widest text-foreground">Aura Insider</h4>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  Bergabunglah dengan daftar kurasi kami untuk akses eksklusif ke koleksi terbatas.
-                </p>
-                <div className="flex gap-2">
-                  <input type="email" placeholder="Email Anda..." className="bg-muted border-none rounded-lg px-4 py-2 text-sm flex-1 outline-none ring-1 ring-border focus:ring-primary/50" />
-                  <button className="bg-primary text-primary-foreground p-2 rounded-lg hover:opacity-90 transition-opacity">
-                    <Send size={18} />
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted-foreground font-medium uppercase tracking-widest">
-              <p>&copy; 2024 AuraModa Collective. Dirancang untuk Kesempurnaan.</p>
-              <div className="flex gap-8">
-                <a href="#" className="hover:text-foreground">Syarat</a>
-                <a href="#" className="hover:text-foreground">Keamanan</a>
-                <a href="#" className="hover:text-foreground">Aksesibilitas</a>
-              </div>
+              <p className="text-gray-400 text-sm max-w-lg">
+                &copy; 2024 {footer.storeName}. All rights reserved. Kami menghadirkan kualitas fashion terbaik langsung ke depan pintu Anda.
+              </p>
             </div>
           </div>
         </footer>

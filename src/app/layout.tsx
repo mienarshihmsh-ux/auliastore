@@ -1,11 +1,12 @@
-import type {Metadata} from 'next';
+
+import type { Metadata } from 'next';
 import './globals.css';
 import Script from 'next/script';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'AuraModa - Intelligent Fashion',
-  description: 'Curated luxury fashion with AI style curation',
+  title: 'FashionStore - Toko Online',
+  description: 'Temukan koleksi fashion terbaik kami',
 };
 
 export default function RootLayout({
@@ -21,7 +22,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
         <Script 
           src="https://app.sandbox.midtrans.com/snap/snap.js" 
-          data-client-key={process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY} 
+          data-client-key="YOUR_MIDTRANS_CLIENT_KEY" 
           strategy="beforeInteractive"
         />
       </head>
