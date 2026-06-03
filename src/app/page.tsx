@@ -6,7 +6,7 @@ import { CartProvider } from '@/components/CartContext';
 import { Navigation, PageView } from '@/components/Navigation';
 import { HomeView, ProductsView, GalleryView, AboutView, ContactView } from '@/components/Views';
 import { CartModal } from '@/components/CartModal';
-import { Instagram, Facebook, Youtube, Send, Music } from 'lucide-react';
+import { Instagram, Facebook, Youtube, Send, Music, Package } from 'lucide-react';
 import { FooterData } from '@/lib/types';
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwgOMnVkWK5q3Cavb3o-_okrpK0P5qqngA8r1JsMtv56aGxvb7wjRYOBQkVfSyXP-fIHA/exec';
