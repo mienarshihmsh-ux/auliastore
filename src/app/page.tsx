@@ -43,7 +43,7 @@ export default function AuraModaApp() {
                   AURAMODA
                 </div>
                 <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
-                  A high-fashion laboratory where intelligent design meets artisanal luxury. Crafted for the global avant-garde.
+                  Sebuah laboratorium high-fashion tempat desain cerdas bertemu kemewahan artisan. Dibuat untuk avant-garde global.
                 </p>
                 <div className="flex gap-4">
                   {[Instagram, Facebook, Youtube, Send].map((Icon, i) => (
@@ -55,32 +55,32 @@ export default function AuraModaApp() {
               </div>
 
               <div className="space-y-6">
-                <h4 className="font-headline font-bold text-lg uppercase tracking-widest text-foreground">Discovery</h4>
+                <h4 className="font-headline font-bold text-lg uppercase tracking-widest text-foreground">Eksplorasi</h4>
                 <ul className="space-y-3 text-sm text-muted-foreground">
-                  <li><button onClick={() => setActivePage('products')} className="hover:text-primary transition-colors">Latest Catalog</button></li>
-                  <li><button onClick={() => setActivePage('gallery')} className="hover:text-primary transition-colors">Visual Ethos</button></li>
-                  <li><a href="#" className="hover:text-primary transition-colors">Membership</a></li>
-                  <li><a href="#" className="hover:text-primary transition-colors">Gift Cards</a></li>
+                  <li><button onClick={() => setActivePage('products')} className="hover:text-primary transition-colors">Katalog Terbaru</button></li>
+                  <li><button onClick={() => setActivePage('gallery')} className="hover:text-primary transition-colors">Etos Visual</button></li>
+                  <li><a href="#" className="hover:text-primary transition-colors">Keanggotaan</a></li>
+                  <li><a href="#" className="hover:text-primary transition-colors">Kartu Hadiah</a></li>
                 </ul>
               </div>
 
               <div className="space-y-6">
-                <h4 className="font-headline font-bold text-lg uppercase tracking-widest text-foreground">Assistance</h4>
+                <h4 className="font-headline font-bold text-lg uppercase tracking-widest text-foreground">Bantuan</h4>
                 <ul className="space-y-3 text-sm text-muted-foreground">
-                  <li><button onClick={() => setActivePage('contact')} className="hover:text-primary transition-colors">Concierge</button></li>
-                  <li><a href="#" className="hover:text-primary transition-colors">Track Orders</a></li>
-                  <li><a href="#" className="hover:text-primary transition-colors">Privacy Ethics</a></li>
-                  <li><a href="#" className="hover:text-primary transition-colors">Sustainability</a></li>
+                  <li><button onClick={() => setActivePage('contact')} className="hover:text-primary transition-colors">Layanan Concierge</button></li>
+                  <li><a href="#" className="hover:text-primary transition-colors">Lacak Pesanan</a></li>
+                  <li><a href="#" className="hover:text-primary transition-colors">Etika Privasi</a></li>
+                  <li><a href="#" className="hover:text-primary transition-colors">Keberlanjutan</a></li>
                 </ul>
               </div>
 
               <div className="space-y-6">
-                <h4 className="font-headline font-bold text-lg uppercase tracking-widest text-foreground">The Aura Insider</h4>
+                <h4 className="font-headline font-bold text-lg uppercase tracking-widest text-foreground">Aura Insider</h4>
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  Join our curated mailing list for exclusive access to limited drops.
+                  Bergabunglah dengan daftar kurasi kami untuk akses eksklusif ke koleksi terbatas.
                 </p>
                 <div className="flex gap-2">
-                  <input type="email" placeholder="Gmail..." className="bg-muted border-none rounded-lg px-4 py-2 text-sm flex-1 outline-none ring-1 ring-border focus:ring-primary/50" />
+                  <input type="email" placeholder="Email Anda..." className="bg-muted border-none rounded-lg px-4 py-2 text-sm flex-1 outline-none ring-1 ring-border focus:ring-primary/50" />
                   <button className="bg-primary text-primary-foreground p-2 rounded-lg hover:opacity-90 transition-opacity">
                     <Send size={18} />
                   </button>
@@ -89,11 +89,11 @@ export default function AuraModaApp() {
             </div>
 
             <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted-foreground font-medium uppercase tracking-widest">
-              <p>&copy; 2024 AuraModa Collective. Designed for Perfection.</p>
+              <p>&copy; 2024 AuraModa Collective. Dirancang untuk Kesempurnaan.</p>
               <div className="flex gap-8">
-                <a href="#" className="hover:text-foreground">Terms</a>
-                <a href="#" className="hover:text-foreground">Security</a>
-                <a href="#" className="hover:text-foreground">Accessibility</a>
+                <a href="#" className="hover:text-foreground">Syarat</a>
+                <a href="#" className="hover:text-foreground">Keamanan</a>
+                <a href="#" className="hover:text-foreground">Aksesibilitas</a>
               </div>
             </div>
           </div>

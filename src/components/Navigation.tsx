@@ -19,7 +19,7 @@ export function Navigation({ activePage, setActivePage, onOpenCart }: Navigation
   const { cartCount } = useCart();
 
   const navLinks = [
-    { id: 'home', label: 'Home', icon: Home },
+    { id: 'home', label: 'Beranda', icon: Home },
     { id: 'products', label: 'Produk', icon: Package },
     { id: 'gallery', label: 'Galeri', icon: ImageIcon },
     { id: 'about', label: 'Tentang', icon: Info },
