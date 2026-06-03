@@ -1,10 +1,11 @@
+
 "use client"
 
 import React, { useState } from 'react';
 import { useCart } from './CartContext';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from './ui/sheet';
 import { Button } from './ui/button';
-import { Minus, Plus, Trash2, ShoppingBag, CreditCard, Truck, User, Mail, Phone, CheckCircle2, XCircle } from 'lucide-react';
+import { Minus, Plus, Trash2, ShoppingBag, CreditCard, Truck, CheckCircle2, XCircle } from 'lucide-react';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { useToast } from '@/hooks/use-toast';
@@ -145,7 +146,7 @@ export function CartModal({ open, onClose }: CartModalProps) {
           <SheetTitle className="text-2xl font-headline flex items-center gap-2 text-gray-800">
             <ShoppingBag className="text-[#667eea]" /> Keranjang Belanja
           </SheetTitle>
-          <SheetDescription>
+          <SheetDescription className="text-gray-500">
             Pilihan fashion terbaik siap Anda miliki.
           </SheetDescription>
         </SheetHeader>
@@ -171,9 +172,9 @@ export function CartModal({ open, onClose }: CartModalProps) {
                     <p className="text-[#667eea] font-bold text-xs mt-1">Rp {formatPrice(item.price)}</p>
                     <div className="flex items-center gap-3 mt-3">
                       <div className="flex items-center border border-gray-200 rounded-lg bg-white overflow-hidden">
-                        <button className="p-1.5 hover:bg-gray-100 transition-colors" onClick={() => updateQuantity(item.id, -1)}><Minus size={12} /></button>
+                        <button className="p-1.5 hover:bg-gray-100 transition-colors text-gray-600" onClick={() => updateQuantity(item.id, -1)}><Minus size={12} /></button>
                         <span className="w-8 text-center text-xs font-bold text-gray-700">{item.quantity}</span>
-                        <button className="p-1.5 hover:bg-gray-100 transition-colors" onClick={() => updateQuantity(item.id, 1)}><Plus size={12} /></button>
+                        <button className="p-1.5 hover:bg-gray-100 transition-colors text-gray-600" onClick={() => updateQuantity(item.id, 1)}><Plus size={12} /></button>
                       </div>
                       <button className="text-gray-400 hover:text-red-500 transition-colors ml-auto" onClick={() => removeFromCart(item.id)}><Trash2 size={16} /></button>
                     </div>
@@ -192,7 +193,7 @@ export function CartModal({ open, onClose }: CartModalProps) {
                   <div className="relative">
                     <Input 
                       placeholder="Adrian Obsidian" 
-                      className={cn("bg-white h-11 pr-10", formData.name && (isValidName ? "border-green-200" : "border-red-200"))}
+                      className={cn("bg-white text-gray-900 h-11 pr-10 border-gray-200", formData.name && (isValidName ? "border-green-500" : "border-red-500"))}
                       value={formData.name}
                       onChange={(e) => setFormData({...formData, name: e.target.value})}
                     />
@@ -205,7 +206,7 @@ export function CartModal({ open, onClose }: CartModalProps) {
                     <Input 
                       type="email"
                       placeholder="adrian@gmail.com" 
-                      className={cn("bg-white h-11 pr-10", formData.email && (isValidEmail ? "border-green-200" : "border-red-200"))}
+                      className={cn("bg-white text-gray-900 h-11 pr-10 border-gray-200", formData.email && (isValidEmail ? "border-green-500" : "border-red-500"))}
                       value={formData.email}
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
                     />
@@ -217,7 +218,7 @@ export function CartModal({ open, onClose }: CartModalProps) {
                   <div className="relative">
                     <Input 
                       placeholder="081234567890" 
-                      className={cn("bg-white h-11 pr-10", formData.phone && (isValidPhone ? "border-green-200" : "border-red-200"))}
+                      className={cn("bg-white text-gray-900 h-11 pr-10 border-gray-200", formData.phone && (isValidPhone ? "border-green-500" : "border-red-500"))}
                       value={formData.phone}
                       onChange={(e) => setFormData({...formData, phone: e.target.value})}
                     />
