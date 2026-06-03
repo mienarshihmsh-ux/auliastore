@@ -23,8 +23,8 @@ export function CartModal({ open, onClose }: CartModalProps) {
   const handleCheckout = () => {
     if (!formData.name || !formData.email || !formData.phone) {
       toast({
-        title: "Incomplete Details",
-        description: "Please fill in all shipping information.",
+        title: "Detail Tidak Lengkap",
+        description: "Harap isi semua informasi pengiriman.",
         variant: "destructive",
       });
       return;
@@ -32,8 +32,8 @@ export function CartModal({ open, onClose }: CartModalProps) {
 
     if (!formData.email.endsWith('@gmail.com')) {
        toast({
-        title: "Invalid Email",
-        description: "Please use a valid Gmail address.",
+        title: "Email Tidak Valid",
+        description: "Harap gunakan alamat Gmail yang valid.",
         variant: "destructive",
       });
       return;
@@ -44,14 +44,14 @@ export function CartModal({ open, onClose }: CartModalProps) {
       // @ts-ignore
       snap.pay("DUMMY_TOKEN_FOR_PROPOSAL", {
         onSuccess: (result: any) => {
-          toast({ title: "Success", description: "Payment received!" });
+          toast({ title: "Berhasil", description: "Pembayaran telah diterima!" });
           clearCart();
           onClose();
         },
-        onError: () => toast({ title: "Error", description: "Payment failed.", variant: "destructive" })
+        onError: () => toast({ title: "Kesalahan", description: "Pembayaran gagal.", variant: "destructive" })
       });
     } else {
-      toast({ title: "Production Mode", description: "Payment gateway is in demo mode." });
+      toast({ title: "Mode Produksi", description: "Gerbang pembayaran sedang dalam mode demo." });
       setTimeout(() => {
         clearCart();
         onClose();
@@ -64,10 +64,10 @@ export function CartModal({ open, onClose }: CartModalProps) {
       <SheetContent className="w-full sm:max-w-md bg-background border-border overflow-y-auto">
         <SheetHeader className="mb-6">
           <SheetTitle className="text-2xl font-headline flex items-center gap-2">
-            <ShoppingBag className="text-primary" /> Your Selection
+            <ShoppingBag className="text-primary" /> Pilihan Anda
           </SheetTitle>
           <SheetDescription>
-            Curated high-fashion items ready for transit.
+            Koleksi fashion eksklusif yang siap untuk dikirimkan.
           </SheetDescription>
         </SheetHeader>
 
@@ -76,8 +76,8 @@ export function CartModal({ open, onClose }: CartModalProps) {
             <div className="h-16 w-16 bg-muted rounded-full flex items-center justify-center text-muted-foreground">
               <ShoppingBag size={32} />
             </div>
-            <p className="text-muted-foreground">Your selection is currently empty.</p>
-            <Button variant="outline" onClick={onClose}>Continue Exploring</Button>
+            <p className="text-muted-foreground">Keranjang Anda saat ini kosong.</p>
+            <Button variant="outline" onClick={onClose}>Lanjut Menjelajah</Button>
           </div>
         ) : (
           <div className="space-y-8 pb-12">
@@ -122,21 +122,21 @@ export function CartModal({ open, onClose }: CartModalProps) {
 
             <div className="p-6 bg-card rounded-2xl border border-border space-y-4">
               <h3 className="font-headline font-bold flex items-center gap-2">
-                <CreditCard size={18} className="text-primary" /> Logistics Info
+                <CreditCard size={18} className="text-primary" /> Info Logistik
               </h3>
               <div className="grid gap-3">
                 <div className="space-y-1">
-                  <Label htmlFor="name" className="text-[10px] uppercase tracking-widest text-muted-foreground">Full Name</Label>
+                  <Label htmlFor="name" className="text-[10px] uppercase tracking-widest text-muted-foreground">Nama Lengkap</Label>
                   <Input 
                     id="name" 
-                    placeholder="E.g., Adrian Obsidian" 
+                    placeholder="Contoh: Adrian Obsidian" 
                     className="bg-background"
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
                   />
                 </div>
                 <div className="space-y-1">
-                  <Label htmlFor="email" className="text-[10px] uppercase tracking-widest text-muted-foreground">Gmail Address</Label>
+                  <Label htmlFor="email" className="text-[10px] uppercase tracking-widest text-muted-foreground">Alamat Gmail</Label>
                   <Input 
                     id="email" 
                     type="email"
@@ -147,7 +147,7 @@ export function CartModal({ open, onClose }: CartModalProps) {
                   />
                 </div>
                 <div className="space-y-1">
-                  <Label htmlFor="phone" className="text-[10px] uppercase tracking-widest text-muted-foreground">Contact Number</Label>
+                  <Label htmlFor="phone" className="text-[10px] uppercase tracking-widest text-muted-foreground">Nomor Telepon</Label>
                   <Input 
                     id="phone" 
                     placeholder="+62..." 
@@ -160,11 +160,11 @@ export function CartModal({ open, onClose }: CartModalProps) {
 
             <div className="sticky bottom-0 bg-background pt-4 border-t border-border">
               <div className="flex justify-between items-center mb-6">
-                <span className="text-muted-foreground font-medium uppercase tracking-widest text-xs">Total Amount</span>
+                <span className="text-muted-foreground font-medium uppercase tracking-widest text-xs">Total Pembayaran</span>
                 <span className="text-2xl font-headline font-bold text-primary">Rp {cartTotal.toLocaleString('id-ID')}</span>
               </div>
               <Button size="lg" className="w-full h-14 text-lg font-headline font-bold group" onClick={handleCheckout}>
-                Complete Purchase
+                Selesaikan Pembelian
                 <CreditCard className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
             </div>

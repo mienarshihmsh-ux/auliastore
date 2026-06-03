@@ -31,13 +31,13 @@ export function HomeView({ onShopNow }: { onShopNow: () => void }) {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-transparent flex flex-col justify-end p-8 md:p-16">
                   <h2 className="text-4xl md:text-6xl font-headline font-bold text-white max-w-2xl mb-4 leading-tight">
-                    {idx === 0 ? "Elevate Your Aesthetic with AuraModa" : "Luxury Defined by Fluid Creativity"}
+                    {idx === 0 ? "Tingkatkan Estetika Anda dengan AuraModa" : "Kemewahan yang Didefinisikan oleh Kreativitas"}
                   </h2>
                   <p className="text-lg text-white/80 max-w-xl mb-8">
-                    Discover our latest collection of intelligently curated high-fashion pieces designed for the modern individual.
+                    Temukan koleksi terbaru kami yang dikurasi secara cerdas untuk individu modern yang mengutamakan kualitas.
                   </p>
                   <Button size="lg" className="w-fit gap-2" onClick={onShopNow}>
-                    Shop Collection <ArrowRight size={18} />
+                    Belanja Koleksi <ArrowRight size={18} />
                   </Button>
                 </div>
               </div>
@@ -53,22 +53,22 @@ export function HomeView({ onShopNow }: { onShopNow: () => void }) {
           <div className="h-12 w-12 rounded-full bg-primary/20 flex items-center justify-center text-primary mb-4">
             <Badge variant="outline" className="border-primary text-primary">AI</Badge>
           </div>
-          <h3 className="font-headline font-bold text-xl mb-2">Style Curator</h3>
-          <p className="text-muted-foreground text-sm">Our AI analyzes your taste to recommend perfect accessories.</p>
+          <h3 className="font-headline font-bold text-xl mb-2">Kurator Gaya</h3>
+          <p className="text-muted-foreground text-sm">AI kami menganalisis selera Anda untuk merekomendasikan aksesori yang sempurna.</p>
         </div>
         <div className="p-8 bg-card rounded-2xl border border-border flex flex-col items-center text-center">
           <div className="h-12 w-12 rounded-full bg-secondary/20 flex items-center justify-center text-secondary mb-4">
             <Building size={24} />
           </div>
-          <h3 className="font-headline font-bold text-xl mb-2">Artisan Quality</h3>
-          <p className="text-muted-foreground text-sm">Every piece is crafted with obsessive attention to luxury detail.</p>
+          <h3 className="font-headline font-bold text-xl mb-2">Kualitas Artisan</h3>
+          <p className="text-muted-foreground text-sm">Setiap bagian dibuat dengan perhatian obsesif terhadap detail mewah yang abadi.</p>
         </div>
         <div className="p-8 bg-card rounded-2xl border border-border flex flex-col items-center text-center">
           <div className="h-12 w-12 rounded-full bg-accent/20 flex items-center justify-center text-accent mb-4">
             <ArrowRight size={24} />
           </div>
-          <h3 className="font-headline font-bold text-xl mb-2">Swift Delivery</h3>
-          <p className="text-muted-foreground text-sm">Global logistics for the high-speed fashion enthusiast.</p>
+          <h3 className="font-headline font-bold text-xl mb-2">Pengiriman Cepat</h3>
+          <p className="text-muted-foreground text-sm">Logistik global yang andal untuk para antusias fashion yang dinamis.</p>
         </div>
       </section>
     </div>
@@ -78,17 +78,17 @@ export function HomeView({ onShopNow }: { onShopNow: () => void }) {
 export function ProductsView() {
   const { addToCart } = useCart();
   const products: Product[] = [
-    { id: 1, name: "Elegant Silk Dress", description: "Minimalist luxury in high-grade silk.", price: 1250000, stock: 5, imageUrl: PlaceHolderImages.find(p => p.id === 'prod-1')!.imageUrl },
-    { id: 2, name: "Obsidian Evening Gown", description: "Deep black velvet with metallic accents.", price: 2400000, stock: 2, imageUrl: PlaceHolderImages.find(p => p.id === 'prod-2')!.imageUrl },
-    { id: 3, name: "Arctic Indigo Scarf", description: "Wool-blend with intricate weave pattern.", price: 450000, stock: 12, imageUrl: PlaceHolderImages.find(p => p.id === 'prod-3')!.imageUrl },
-    { id: 4, name: "Lavender Bloom Heels", description: "Sculptural heels in soft suede.", price: 1850000, stock: 0, imageUrl: PlaceHolderImages.find(p => p.id === 'prod-4')!.imageUrl },
+    { id: 1, name: "Elegant Silk Dress", description: "Kemewahan minimalis dalam sutra kelas tinggi.", price: 1250000, stock: 5, imageUrl: PlaceHolderImages.find(p => p.id === 'prod-1')!.imageUrl },
+    { id: 2, name: "Obsidian Evening Gown", description: "Velvet hitam pekat dengan aksen metalik yang anggun.", price: 2400000, stock: 2, imageUrl: PlaceHolderImages.find(p => p.id === 'prod-2')!.imageUrl },
+    { id: 3, name: "Arctic Indigo Scarf", description: "Campuran wol dengan pola tenun yang rumit dan artistik.", price: 450000, stock: 12, imageUrl: PlaceHolderImages.find(p => p.id === 'prod-3')!.imageUrl },
+    { id: 4, name: "Lavender Bloom Heels", description: "Heels skulptural dalam balutan suede yang lembut.", price: 1850000, stock: 0, imageUrl: PlaceHolderImages.find(p => p.id === 'prod-4')!.imageUrl },
   ];
 
   return (
     <div className="space-y-8 page-entrance">
       <div className="text-center space-y-2">
-        <h2 className="text-3xl font-headline font-bold">The Catalog</h2>
-        <p className="text-muted-foreground">Limited edition pieces from our latest season.</p>
+        <h2 className="text-3xl font-headline font-bold">Katalog Produk</h2>
+        <p className="text-muted-foreground">Koleksi edisi terbatas dari musim terbaru kami.</p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {products.map((product) => (
@@ -102,7 +102,7 @@ export function ProductsView() {
               />
               {product.stock === 0 && (
                 <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center">
-                  <Badge variant="destructive" className="uppercase tracking-widest px-4 py-1">Out of Stock</Badge>
+                  <Badge variant="destructive" className="uppercase tracking-widest px-4 py-1">Stok Habis</Badge>
                 </div>
               )}
             </div>
@@ -114,7 +114,7 @@ export function ProductsView() {
               <div className="flex justify-between items-center">
                 <span className="text-xl font-bold text-primary">Rp {product.price.toLocaleString('id-ID')}</span>
                 <span className={cn("text-[10px] font-bold px-2 py-0.5 rounded", product.stock < 5 ? "bg-destructive/10 text-destructive" : "bg-primary/10 text-primary")}>
-                  {product.stock} LEFT
+                  SISA {product.stock}
                 </span>
               </div>
               <Button 
@@ -122,7 +122,7 @@ export function ProductsView() {
                 disabled={product.stock === 0}
                 onClick={() => addToCart(product)}
               >
-                Add to Cart
+                Tambah ke Keranjang
               </Button>
             </CardContent>
           </Card>
@@ -135,17 +135,27 @@ export function ProductsView() {
 export function GalleryView() {
   const [filter, setFilter] = useState('all');
   const items: GalleryItem[] = [
-    { id: 1, title: "Runway Aura", category: "fashion", description: "Live performance at Jakarta Fashion Week", imageUrl: PlaceHolderImages.find(p => p.id === 'gallery-1')!.imageUrl },
-    { id: 2, title: "Studio Light", category: "editorial", description: "Obsidian Purple collection shoot", imageUrl: PlaceHolderImages.find(p => p.id === 'gallery-2')!.imageUrl },
-    { id: 3, title: "Creative Depth", category: "behind-the-scenes", description: "Fabric testing phase", imageUrl: PlaceHolderImages.find(p => p.id === 'about-1')!.imageUrl },
+    { id: 1, title: "Runway Aura", category: "fashion", description: "Pertunjukan langsung di Jakarta Fashion Week", imageUrl: PlaceHolderImages.find(p => p.id === 'gallery-1')!.imageUrl },
+    { id: 2, title: "Studio Light", category: "editorial", description: "Pemotretan koleksi Obsidian Purple", imageUrl: PlaceHolderImages.find(p => p.id === 'gallery-2')!.imageUrl },
+    { id: 3, title: "Creative Depth", category: "behind-the-scenes", description: "Fase pengujian kain premium", imageUrl: PlaceHolderImages.find(p => p.id === 'about-1')!.imageUrl },
   ];
 
   const categories = ['all', 'fashion', 'editorial', 'behind-the-scenes'];
 
+  const getLabel = (cat: string) => {
+    switch (cat) {
+      case 'all': return 'Semua';
+      case 'fashion': return 'Fashion';
+      case 'editorial': return 'Editorial';
+      case 'behind-the-scenes': return 'Di Balik Layar';
+      default: return cat;
+    }
+  }
+
   return (
     <div className="space-y-8 page-entrance">
        <div className="text-center space-y-4">
-        <h2 className="text-3xl font-headline font-bold">Visual Ethos</h2>
+        <h2 className="text-3xl font-headline font-bold">Etos Visual</h2>
         <div className="flex flex-wrap justify-center gap-2">
           {categories.map(cat => (
             <Button 
@@ -155,7 +165,7 @@ export function GalleryView() {
               className="rounded-full capitalize"
               onClick={() => setFilter(cat)}
             >
-              {cat.replace(/-/g, ' ')}
+              {getLabel(cat)}
             </Button>
           ))}
         </div>
@@ -180,10 +190,10 @@ export function AboutView() {
   return (
     <div className="space-y-12 page-entrance max-w-4xl mx-auto">
       <div className="relative h-[400px] w-full rounded-2xl overflow-hidden high-fashion-shadow mb-12">
-        <Image src={PlaceHolderImages.find(p => p.id === 'about-1')!.imageUrl} alt="About AuraModa" fill className="object-cover" />
+        <Image src={PlaceHolderImages.find(p => p.id === 'about-1')!.imageUrl} alt="Tentang AuraModa" fill className="object-cover" />
         <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px] flex items-center justify-center p-8">
           <div className="text-center space-y-4">
-            <h2 className="text-4xl md:text-5xl font-headline font-bold text-white">Our Fluid Story</h2>
+            <h2 className="text-4xl md:text-5xl font-headline font-bold text-white">Kisah Kami</h2>
             <div className="w-24 h-1 bg-primary mx-auto" />
           </div>
         </div>
@@ -191,20 +201,20 @@ export function AboutView() {
       
       <div className="grid gap-12 text-lg text-muted-foreground leading-relaxed">
         <section className="space-y-4">
-          <h3 className="text-2xl font-headline font-bold text-foreground">Defining Luxury for the Next Generation</h3>
+          <h3 className="text-2xl font-headline font-bold text-foreground">Mendefinisikan Kemewahan untuk Generasi Berikutnya</h3>
           <p>
-            AuraModa was born from the intersection of Obsidian shadows and Deep Lavender dreams. We believe fashion is not just attire, but an extension of one's aura—a fluid, ever-changing masterpiece.
+            AuraModa lahir dari perpaduan bayangan Obsidian dan mimpi Lavender yang mendalam. Kami percaya fashion bukan sekadar pakaian, melainkan perpanjangan dari aura seseorang—sebuah mahakarya yang cair dan terus berubah.
           </p>
         </section>
 
         <section className="grid md:grid-cols-2 gap-8">
           <div className="p-8 bg-card rounded-2xl border border-border">
-            <h4 className="font-headline font-bold text-xl text-foreground mb-4">The Vision</h4>
-            <p className="text-sm">To synchronize artisanal craftsmanship with intelligent technology, creating garments that react to the wearer's environment and mood.</p>
+            <h4 className="font-headline font-bold text-xl text-foreground mb-4">Visi Kami</h4>
+            <p className="text-sm">Menyelaraskan kerajinan artisan dengan teknologi cerdas, menciptakan pakaian yang bereaksi terhadap lingkungan dan suasana hati pemakainya.</p>
           </div>
           <div className="p-8 bg-card rounded-2xl border border-border">
-            <h4 className="font-headline font-bold text-xl text-foreground mb-4">The Promise</h4>
-            <p className="text-sm">Exclusivity without pretension. Quality without compromise. Innovation that respects tradition.</p>
+            <h4 className="font-headline font-bold text-xl text-foreground mb-4">Janji Kami</h4>
+            <p className="text-sm">Eksklusivitas tanpa kepura-puraan. Kualitas tanpa kompromi. Inovasi yang tetap menghormati tradisi luhur.</p>
           </div>
         </section>
       </div>
@@ -216,8 +226,8 @@ export function ContactView() {
   return (
     <div className="space-y-8 page-entrance max-w-6xl mx-auto">
       <div className="text-center space-y-2">
-        <h2 className="text-3xl font-headline font-bold">Connect with Aura</h2>
-        <p className="text-muted-foreground">Visit our flagship studio or reach out via digital channels.</p>
+        <h2 className="text-3xl font-headline font-bold">Terhubung dengan Aura</h2>
+        <p className="text-muted-foreground">Kunjungi studio utama kami atau hubungi melalui saluran digital.</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 bg-card rounded-3xl overflow-hidden border border-border high-fashion-shadow">
@@ -228,8 +238,8 @@ export function ContactView() {
                 <MapPin size={24} />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-muted-foreground uppercase tracking-widest">Address</h4>
-                <p className="font-medium">Sudirman Fashion District, Block A7, Jakarta</p>
+                <h4 className="text-sm font-bold text-muted-foreground uppercase tracking-widest">Alamat</h4>
+                <p className="font-medium">Distrik Fashion Sudirman, Blok A7, Jakarta</p>
               </div>
             </div>
 
@@ -238,7 +248,7 @@ export function ContactView() {
                 <Phone size={24} />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-muted-foreground uppercase tracking-widest">Phone</h4>
+                <h4 className="text-sm font-bold text-muted-foreground uppercase tracking-widest">Telepon</h4>
                 <p className="font-medium">+62 812-3456-7890</p>
               </div>
             </div>
@@ -255,12 +265,12 @@ export function ContactView() {
           </div>
 
           <div className="pt-8 border-t border-border">
-            <h4 className="font-headline font-bold mb-4">Studio Hours</h4>
+            <h4 className="font-headline font-bold mb-4">Jam Operasional Studio</h4>
             <div className="grid grid-cols-2 text-sm gap-2">
-              <span className="text-muted-foreground">Mon - Fri:</span>
-              <span>10:00 AM - 08:00 PM</span>
-              <span className="text-muted-foreground">Sat - Sun:</span>
-              <span>11:00 AM - 06:00 PM</span>
+              <span className="text-muted-foreground">Sen - Jum:</span>
+              <span>10:00 - 20:00</span>
+              <span className="text-muted-foreground">Sab - Min:</span>
+              <span>11:00 - 18:00</span>
             </div>
           </div>
         </div>

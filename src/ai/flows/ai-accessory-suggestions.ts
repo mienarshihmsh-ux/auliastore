@@ -42,21 +42,21 @@ const accessorySuggestionPrompt = ai.definePrompt({
   name: 'accessorySuggestionPrompt',
   input: {schema: AccessorySuggestionInputSchema},
   output: {schema: AccessorySuggestionOutputSchema},
-  prompt: `You are an expert fashion stylist and personal shopper.
-Your task is to suggest accessories that would perfectly complement the items in the user's shopping cart.
-The goal is to help the user complete their outfit and discover new complementary products.
-Consider the style, color, and function of the cart items when making suggestions.
-Provide a name, description, and a brief reason for each suggestion.
+  prompt: `Anda adalah seorang fashion stylist ahli dan personal shopper.
+Tugas Anda adalah menyarankan aksesori yang akan melengkapi item di keranjang belanja pengguna dengan sempurna.
+Tujuannya adalah membantu pengguna melengkapi pakaian mereka dan menemukan produk komplementer baru.
+Pertimbangkan gaya, warna, dan fungsi item keranjang saat membuat saran.
+Berikan nama, deskripsi, dan alasan singkat untuk setiap saran dalam Bahasa Indonesia.
 
-Items currently in the cart:
+Item saat ini di keranjang:
 {{#each cartItems}}
-- Name: {{{name}}}
-  Description: {{{description}}}
-  Price: Rp {{{price}}}
-  Quantity: {{{quantity}}}
+- Nama: {{{name}}}
+  Deskripsi: {{{description}}}
+  Harga: Rp {{{price}}}
+  Jumlah: {{{quantity}}}
 {{/each}}
 
-Based on these items, what accessories would you suggest?`,
+Berdasarkan item-item ini, aksesori apa yang Anda sarankan?`,
 });
 
 const aiAccessorySuggestionsFlow = ai.defineFlow(

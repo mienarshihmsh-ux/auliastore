@@ -1,3 +1,58 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-1",
+      "description": "High fashion model in lavender outfit",
+      "imageUrl": "https://picsum.photos/seed/fashion1/1200/600",
+      "imageHint": "fashion model"
+    },
+    {
+      "id": "hero-2",
+      "description": "Elegant luxury fashion accessories",
+      "imageUrl": "https://picsum.photos/seed/fashion2/1200/600",
+      "imageHint": "luxury jewelry"
+    },
+    {
+      "id": "prod-1",
+      "description": "Elegant Silk Dress",
+      "imageUrl": "https://picsum.photos/seed/dress1/600/800",
+      "imageHint": "silk dress"
+    },
+    {
+      "id": "prod-2",
+      "description": "Obsidian Evening Gown",
+      "imageUrl": "https://picsum.photos/seed/dress2/600/800",
+      "imageHint": "evening gown"
+    },
+    {
+      "id": "prod-3",
+      "description": "Arctic Indigo Scarf",
+      "imageUrl": "https://picsum.photos/seed/scarf1/600/800",
+      "imageHint": "indigo scarf"
+    },
+    {
+      "id": "prod-4",
+      "description": "Lavender Bloom Heels",
+      "imageUrl": "https://picsum.photos/seed/heels1/600/800",
+      "imageHint": "high heels"
+    },
+    {
+      "id": "gallery-1",
+      "description": "Spring Collection Runway",
+      "imageUrl": "https://picsum.photos/seed/gal1/800/600",
+      "imageHint": "runway fashion"
+    },
+    {
+      "id": "gallery-2",
+      "description": "Backstage preparations",
+      "imageUrl": "https://picsum.photos/seed/gal2/800/600",
+      "imageHint": "fashion studio"
+    },
+    {
+      "id": "about-1",
+      "description": "Our creative studio",
+      "imageUrl": "https://picsum.photos/seed/about1/800/600",
+      "imageHint": "fashion design"
+    }
+  ]
 }

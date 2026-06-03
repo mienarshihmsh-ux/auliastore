@@ -47,13 +47,13 @@ export function AIRecommendations() {
     <div className="mt-8 pt-8 border-t border-border">
       <div className="flex items-center gap-2 mb-6">
         <Sparkles className="text-primary animate-pulse" size={20} />
-        <h3 className="text-lg font-headline font-semibold">AI Style Recommendations</h3>
+        <h3 className="text-lg font-headline font-semibold">Rekomendasi Gaya AI</h3>
       </div>
 
       {loading ? (
         <div className="flex items-center justify-center py-8 text-muted-foreground gap-3">
           <Loader2 className="animate-spin" size={20} />
-          <span>Curating your style...</span>
+          <span>Mengkurasikan gaya Anda...</span>
         </div>
       ) : recommendations?.suggestions ? (
         <div className="grid gap-4">
@@ -66,7 +66,7 @@ export function AIRecommendations() {
                     <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{rec.description}</p>
                   </div>
                   <div className="text-[10px] uppercase tracking-wider font-bold text-secondary bg-secondary/10 px-2 py-1 rounded">
-                    PRO TIP
+                    TIPS AHLI
                   </div>
                 </div>
                 <div className="mt-3 text-xs bg-background/50 p-2 rounded italic text-foreground/80">
@@ -77,7 +77,7 @@ export function AIRecommendations() {
           ))}
         </div>
       ) : (
-        <p className="text-sm text-muted-foreground italic">Add items to see personalized pairings.</p>
+        <p className="text-sm text-muted-foreground italic">Tambahkan produk untuk melihat paduan gaya personal.</p>
       )}
     </div>
   );
