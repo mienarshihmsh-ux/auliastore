@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useCart } from './CartContext';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from './ui/sheet';
 import { Button } from './ui/button';
-import { Minus, Plus, Trash2, ShoppingBag, CreditCard, Truck, CheckCircle2, XCircle } from 'lucide-react';
+import { Minus, Plus, Trash2, ShoppingBag, CreditCard, Truck, CheckCircle2, XCircle, X } from 'lucide-react';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { useToast } from '@/hooks/use-toast';
@@ -233,14 +233,25 @@ export function CartModal({ open, onClose }: CartModalProps) {
                 <span className="text-gray-400 font-bold uppercase tracking-widest text-xs">Total Pembayaran</span>
                 <span className="text-2xl font-headline font-bold text-[#667eea]">Rp {formatPrice(cartTotal)}</span>
               </div>
-              <Button 
-                size="lg" 
-                className="w-full h-14 text-lg font-bold bg-gradient-to-r from-[#27ae60] to-[#2ecc71] hover:opacity-90 transition-all rounded-2xl group shadow-lg shadow-green-200" 
-                onClick={handleCheckout}
-              >
-                Checkout Sekarang
-                <CreditCard className="ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
+              <div className="space-y-3">
+                <Button 
+                  size="lg" 
+                  className="w-full h-14 text-lg font-bold bg-gradient-to-r from-[#27ae60] to-[#2ecc71] hover:opacity-90 transition-all rounded-2xl group shadow-lg shadow-green-200" 
+                  onClick={handleCheckout}
+                >
+                  Checkout Sekarang
+                  <CreditCard className="ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+                <Button 
+                  variant="ghost"
+                  size="lg"
+                  className="w-full h-12 text-gray-500 hover:text-gray-800 hover:bg-gray-50 rounded-2xl flex items-center justify-center gap-2"
+                  onClick={onClose}
+                >
+                  <X size={18} />
+                  Tutup
+                </Button>
+              </div>
             </div>
           </div>
         )}
