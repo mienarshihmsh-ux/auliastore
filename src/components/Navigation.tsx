@@ -35,12 +35,12 @@ export function Navigation({ activePage, setActivePage, onOpenCart, storeName }:
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-        {/* Mobile Toggle */}
+        {/* Mobile Toggle Button (Menu <-> X) */}
         <button 
-          className="md:hidden p-2 text-gray-800 hover:text-primary transition-colors"
+          className="md:hidden p-2 text-gray-800 hover:text-primary transition-all duration-300 transform active:scale-95"
           onClick={() => setIsOpen(!isOpen)}
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          {isOpen ? <X size={24} className="animate-in fade-in zoom-in" /> : <Menu size={24} className="animate-in fade-in zoom-in" />}
         </button>
 
         {/* Logo */}
@@ -85,25 +85,20 @@ export function Navigation({ activePage, setActivePage, onOpenCart, storeName }:
         </button>
       </div>
 
-      {/* Mobile Sidebar Backdrop */}
+      {/* Mobile Sidebar Backdrop (Below Navbar) */}
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-black/40 z-40 md:hidden transition-opacity"
+          className="fixed inset-0 top-20 bg-black/40 z-40 md:hidden transition-opacity"
           onClick={() => setIsOpen(false)}
         />
       )}
 
-      {/* Mobile Sidebar Menu */}
+      {/* Mobile Sidebar Menu (Starts below Navbar) */}
       <div className={cn(
-        "fixed inset-y-0 left-0 w-[280px] bg-white z-50 md:hidden transition-transform duration-300 shadow-2xl",
+        "fixed top-20 bottom-0 left-0 w-[280px] bg-white z-50 md:hidden transition-transform duration-300 shadow-2xl border-r border-gray-100",
         isOpen ? "translate-x-0" : "-translate-x-full"
       )}>
-        <div className="p-6 flex flex-col h-full">
-          <div className="flex items-center justify-between mb-8">
-            <span className="text-xl font-headline font-bold text-primary">{storeName}</span>
-            <button onClick={() => setIsOpen(false)} className="text-gray-500"><X size={24} /></button>
-          </div>
-          
+        <div className="p-4 flex flex-col h-full overflow-y-auto">
           <div className="flex-1 space-y-2">
             {navLinks.map((link) => (
               <button
