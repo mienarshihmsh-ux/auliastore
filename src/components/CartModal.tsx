@@ -141,12 +141,12 @@ export function CartModal({ open, onClose }: CartModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-2xl bg-white border-none p-0 overflow-hidden max-h-[90vh] flex flex-col">
+      <DialogContent className="sm:max-w-2xl bg-white border-none p-0 overflow-hidden max-h-[90vh] flex flex-col [&>button]:text-gray-900 [&>button]:hover:bg-gray-100 [&>button]:bg-gray-50 [&>button]:p-2 [&>button]:rounded-full [&>button]:top-4 [&>button]:right-4">
         <DialogHeader className="p-6 border-b border-gray-100 bg-white">
           <DialogTitle className="text-2xl font-headline flex items-center gap-2 text-gray-800">
             <ShoppingBag className="text-[#667eea]" /> Keranjang Belanja
           </DialogTitle>
-          <DialogDescription className="text-gray-500">
+          <DialogDescription className="text-gray-500 text-left">
             Pilihan fashion terbaik siap Anda miliki.
           </DialogDescription>
         </DialogHeader>
@@ -250,7 +250,7 @@ export function CartModal({ open, onClose }: CartModalProps) {
               <Button 
                 variant="ghost"
                 size="lg"
-                className="w-full md:w-32 h-14 text-gray-500 hover:text-gray-800 hover:bg-gray-50 rounded-2xl flex items-center justify-center gap-2 border border-gray-100"
+                className="w-full md:w-32 h-14 text-gray-500 hover:text-white hover:bg-red-500 rounded-2xl flex items-center justify-center gap-2 border border-gray-100 transition-all"
                 onClick={onClose}
               >
                 <X size={18} />
