@@ -54,6 +54,23 @@ export function CartModal({ open, onClose }: CartModalProps) {
   };
 
   const handleCheckout = async () => {
+    // Check if form is valid first before processing
+    if (!isFormValid) {
+      let errorMsg = 'Harap lengkapi data pengiriman Anda dengan benar.';
+      if (!isValidName) errorMsg = 'Nama harus minimal 3 karakter.';
+      else if (!isValidEmail) errorMsg = 'Harus menggunakan email Gmail (@gmail.com).';
+      else if (!isValidPhone) errorMsg = 'Nomor telepon Indonesia tidak valid.';
+      else if (!isValidAddress) errorMsg = 'Alamat harus minimal 10 karakter.';
+      
+      Swal.fire({
+        title: 'Data Tidak Lengkap',
+        text: errorMsg,
+        icon: 'warning',
+        confirmButtonColor: '#667eea'
+      });
+      return;
+    }
+
     const now = Date.now();
     if (now - lastRequestTime < 2000) {
       toast({ title: "Harap Tunggu", description: "Terlalu cepat melakukan request.", variant: "destructive" });
@@ -66,14 +83,9 @@ export function CartModal({ open, onClose }: CartModalProps) {
       return;
     }
 
-    if (!isFormValid) {
-      Swal.fire('Data Tidak Valid', 'Harap periksa kembali informasi pengiriman Anda.', 'error');
-      return;
-    }
-
     // Check if Midtrans Snap is loaded
     if (typeof window === 'undefined' || !(window as any).snap) {
-      Swal.fire('Error', 'Sistem pembayaran belum siap. Mohon refresh halaman atau tunggu sebentar.', 'error');
+      Swal.fire('Sistem Belum Siap', 'Sistem pembayaran sedang dimuat, mohon tunggu sebentar.', 'info');
       return;
     }
 
@@ -210,7 +222,6 @@ export function CartModal({ open, onClose }: CartModalProps) {
                   <Truck size={18} className="text-primary" /> Informasi Pengiriman
                 </h3>
                 <div className="grid gap-4">
-                  {/* NAMA LENGKAP */}
                   <div className="space-y-1">
                     <Label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Nama Lengkap</Label>
                     <div className="relative">
@@ -226,7 +237,6 @@ export function CartModal({ open, onClose }: CartModalProps) {
                     {formData.name && isValidName && <p className="text-[10px] text-green-600 font-medium">✓ Nama valid</p>}
                   </div>
 
-                  {/* EMAIL */}
                   <div className="space-y-1">
                     <Label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Email (Gmail)</Label>
                     <div className="relative">
@@ -243,7 +253,6 @@ export function CartModal({ open, onClose }: CartModalProps) {
                     {formData.email && isValidEmail && <p className="text-[10px] text-green-600 font-medium">✓ Email Gmail valid</p>}
                   </div>
 
-                  {/* NO TELEPON */}
                   <div className="space-y-1">
                     <Label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">No. Telepon</Label>
                     <div className="relative">
@@ -259,7 +268,6 @@ export function CartModal({ open, onClose }: CartModalProps) {
                     {formData.phone && isValidPhone && <p className="text-[10px] text-green-600 font-medium">✓ Nomor telepon valid</p>}
                   </div>
 
-                  {/* ALAMAT LENGKAP */}
                   <div className="space-y-1">
                     <Label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Alamat Lengkap</Label>
                     <div className="relative">
@@ -279,7 +287,6 @@ export function CartModal({ open, onClose }: CartModalProps) {
                     </div>
                   </div>
 
-                  {/* CATATAN TAMBAHAN */}
                   <div className="space-y-1">
                     <Label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Catatan Tambahan (Opsional)</Label>
                     <div className="relative">
@@ -313,7 +320,6 @@ export function CartModal({ open, onClose }: CartModalProps) {
                 size="lg" 
                 className="flex-1 h-14 text-lg font-bold bg-gradient-to-r from-green-600 to-green-500 hover:opacity-90 transition-all rounded-2xl group shadow-lg shadow-green-200" 
                 onClick={handleCheckout}
-                disabled={!isFormValid}
               >
                 Checkout Sekarang
                 <CreditCard className="ml-2 group-hover:translate-x-1 transition-transform" />
