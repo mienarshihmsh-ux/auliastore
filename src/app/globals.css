@@ -38,6 +38,12 @@
   }
 }
 
+/* Fix for Midtrans Snap interaction inside Modals */
+#snap-midtrans, .snap-container {
+  pointer-events: auto !important;
+  z-index: 999999 !important;
+}
+
 .high-fashion-shadow {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }

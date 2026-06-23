@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState } from 'react';
@@ -54,7 +53,6 @@ export function CartModal({ open, onClose }: CartModalProps) {
   };
 
   const handleCheckout = async () => {
-    // Check if form is valid first before processing
     if (!isFormValid) {
       let errorMsg = 'Harap lengkapi data pengiriman Anda dengan benar.';
       if (!isValidName) errorMsg = 'Nama harus minimal 3 karakter.';
@@ -83,7 +81,6 @@ export function CartModal({ open, onClose }: CartModalProps) {
       return;
     }
 
-    // Check if Midtrans Snap is loaded
     if (typeof window === 'undefined' || !(window as any).snap) {
       Swal.fire('Sistem Belum Siap', 'Sistem pembayaran sedang dimuat, mohon tunggu sebentar.', 'info');
       return;
