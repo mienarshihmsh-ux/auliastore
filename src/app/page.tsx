@@ -6,10 +6,22 @@ import { CartProvider } from '@/components/CartContext';
 import { Navigation, PageView } from '@/components/Navigation';
 import { HomeView, ProductsView, GalleryView, AboutView, ContactView } from '@/components/Views';
 import { CartModal } from '@/components/CartModal';
-import { Instagram, Facebook, Youtube, Send, Music, Package } from 'lucide-react';
+import { Instagram, Facebook, Youtube, Package } from 'lucide-react';
 import { FooterData } from '@/lib/types';
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwgOMnVkWK5q3Cavb3o-_okrpK0P5qqngA8r1JsMtv56aGxvb7wjRYOBQkVfSyXP-fIHA/exec';
+
+const TikTokIcon = ({ size = 24 }: { size?: number }) => (
+  <svg 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="currentColor" 
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.01.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.89-.6-4.13-1.47V18.5a6.5 6.5 0 0 1-11.5 4.01c-1.42-1.83-1.54-4.59-.31-6.55 1.12-1.92 3.48-3.05 5.68-2.67V9.16c-1.39-.06-2.77-.35-4.06-1.01A8.25 8.25 0 0 1 4.5 4.5C3.3 3.2 2.8 1.5 2.8 0h4.03c.02 1.31.54 2.61 1.47 3.61.93.99 2.21 1.56 3.54 1.7V.02z"/>
+  </svg>
+);
 
 export default function FashionStoreApp() {
   const [activePage, setActivePage] = useState<PageView>('home');
@@ -77,7 +89,7 @@ export default function FashionStoreApp() {
                 )}
                 {footer.tiktok && (
                   <a href={footer.tiktok} target="_blank" rel="noopener noreferrer" className="h-12 w-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#667eea] transition-all">
-                    <Music size={24} />
+                    <TikTokIcon size={24} />
                   </a>
                 )}
               </div>
