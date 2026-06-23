@@ -26,7 +26,7 @@ const TikTokIcon = ({ size = 24 }: { size?: number }) => (
 export default function FashionStoreApp() {
   const [activePage, setActivePage] = useState<PageView>('home');
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [footer, setFooter] = useState<FooterData>({ storeName: "FashionStore" });
+  const [footer, setFooter] = useState<FooterData>({ storeName: "Aulia Store" });
 
   useEffect(() => {
     fetch(`${APPS_SCRIPT_URL}?type=footer`)

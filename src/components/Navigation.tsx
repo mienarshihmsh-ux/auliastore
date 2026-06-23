@@ -36,8 +36,9 @@ export function Navigation({ activePage, setActivePage, onOpenCart, storeName }:
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
         <button 
-          className="md:hidden p-2 text-gray-800 hover:text-[#667eea] transition-colors"
+          className="md:hidden p-2 text-gray-800 hover:text-[#667eea] transition-colors focus:outline-none"
           onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle Menu"
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -71,6 +72,7 @@ export function Navigation({ activePage, setActivePage, onOpenCart, storeName }:
         <button 
           className="relative p-2 text-gray-800 hover:text-[#667eea] transition-colors"
           onClick={onOpenCart}
+          aria-label="Open Cart"
         >
           <ShoppingCart size={24} />
           {cartCount > 0 && (
@@ -81,26 +83,29 @@ export function Navigation({ activePage, setActivePage, onOpenCart, storeName }:
         </button>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Backdrop */}
       {isOpen && (
         <div 
-          className="fixed inset-0 top-20 bg-black/20 backdrop-blur-sm z-40 md:hidden"
+          className="fixed inset-0 top-20 bg-black/40 backdrop-blur-sm z-40 md:hidden animate-in fade-in duration-300"
           onClick={() => setIsOpen(false)}
         />
       )}
 
-      {/* Mobile Menu Panel */}
+      {/* Mobile Menu Panel - Opaque Side Drawer */}
       <div className={cn(
-        "fixed inset-y-0 left-0 top-20 w-[280px] bg-white z-50 md:hidden transition-transform duration-300 ease-in-out border-r border-gray-100 shadow-xl",
+        "fixed inset-y-0 left-0 top-20 w-[280px] bg-white z-50 md:hidden transition-transform duration-300 ease-in-out border-r border-gray-100 shadow-2xl",
         isOpen ? "translate-x-0" : "-translate-x-full"
       )}>
-        <div className="flex flex-col p-4 gap-2">
+        <div className="flex flex-col p-4 gap-2 h-full bg-white">
+          <div className="mb-4 px-4 py-2 border-b border-gray-50">
+            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Menu Navigasi</p>
+          </div>
           {navLinks.map((link) => (
             <button
               key={link.id}
               onClick={() => handleNavClick(link.id)}
               className={cn(
-                "flex items-center gap-4 text-base font-semibold p-4 rounded-xl transition-all duration-200 w-full text-left",
+                "flex items-center gap-4 text-base font-semibold p-4 rounded-xl transition-all duration-200 w-full text-left group",
                 activePage === link.id 
                   ? "text-[#667eea] bg-blue-50 shadow-sm" 
                   : "text-gray-700 hover:bg-gray-50 hover:text-[#667eea]"
@@ -113,6 +118,10 @@ export function Navigation({ activePage, setActivePage, onOpenCart, storeName }:
               {link.label}
             </button>
           ))}
+          
+          <div className="mt-auto p-4 bg-gray-50 rounded-2xl">
+            <p className="text-xs text-gray-500 italic">Selamat datang di {storeName}, temukan gaya terbaikmu.</p>
+          </div>
         </div>
       </div>
     </nav>
