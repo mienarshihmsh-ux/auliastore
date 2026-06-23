@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useCart } from './CartContext';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from './ui/dialog';
 import { Button } from './ui/button';
-import { Minus, Plus, Trash2, ShoppingBag, CreditCard, Truck, CheckCircle2, XCircle, X } from 'lucide-react';
+import { Minus, Plus, Trash2, ShoppingBag, CreditCard, Truck, CheckCircle2, XCircle } from 'lucide-react';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { useToast } from '@/hooks/use-toast';
@@ -141,7 +141,7 @@ export function CartModal({ open, onClose }: CartModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-2xl bg-white border-none p-0 overflow-hidden max-h-[90vh] flex flex-col [&>button]:text-gray-900 [&>button]:hover:bg-gray-100 [&>button]:bg-gray-50 [&>button]:p-2 [&>button]:rounded-full [&>button]:top-4 [&>button]:right-4">
+      <DialogContent className="sm:max-w-2xl bg-white border-none p-0 overflow-hidden max-h-[90vh] flex flex-col [&>button]:text-gray-900 [&>button]:hover:bg-red-500 [&>button]:hover:text-white [&>button]:bg-gray-50 [&>button]:p-2 [&>button]:rounded-full [&>button]:top-4 [&>button]:right-4">
         <DialogHeader className="p-6 border-b border-gray-100 bg-white">
           <DialogTitle className="text-2xl font-headline flex items-center gap-2 text-gray-800">
             <ShoppingBag className="text-[#667eea]" /> Keranjang Belanja
@@ -250,10 +250,9 @@ export function CartModal({ open, onClose }: CartModalProps) {
               <Button 
                 variant="ghost"
                 size="lg"
-                className="w-full md:w-32 h-14 text-gray-500 hover:text-white hover:bg-red-500 rounded-2xl flex items-center justify-center gap-2 border border-gray-100 transition-all"
+                className="w-full md:w-32 h-14 text-gray-500 hover:text-white hover:bg-red-500 rounded-2xl flex items-center justify-center border border-gray-100 transition-all"
                 onClick={onClose}
               >
-                <X size={18} />
                 Tutup
               </Button>
             </div>
