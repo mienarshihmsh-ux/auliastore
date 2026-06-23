@@ -9,7 +9,7 @@ import { CartModal } from '@/components/CartModal';
 import { Instagram, Facebook, Youtube, Package } from 'lucide-react';
 import { FooterData } from '@/lib/types';
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwgOMnVkWK5q3Cavb3o-_okrpK0P5qqngA8r1JsMtv56aGxvb7wjRYOBQkVfSyXP-fIHA/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzFtZ0FEN-ljWl4EYEpIHQcy6AgCFxfGVJT0m6izM2hxY4YiRjozmrIMR2GhJrW4upWYA/exec';
 
 const TikTokIcon = ({ size = 24 }: { size?: number }) => (
   <svg 

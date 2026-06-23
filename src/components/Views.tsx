@@ -13,7 +13,7 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwgOMnVkWK5q3Cavb3o-_okrpK0P5qqngA8r1JsMtv56aGxvb7wjRYOBQkVfSyXP-fIHA/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzFtZ0FEN-ljWl4EYEpIHQcy6AgCFxfGVJT0m6izM2hxY4YiRjozmrIMR2GhJrW4upWYA/exec';
 
 export function HomeView({ onShopNow }: { onShopNow: () => void }) {
   const [carousels, setCarousels] = useState<CarouselItem[]>([]);

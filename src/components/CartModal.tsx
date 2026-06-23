@@ -8,11 +8,12 @@ import { Button } from './ui/button';
 import { Minus, Plus, Trash2, ShoppingBag, CreditCard, Truck, CheckCircle2, XCircle } from 'lucide-react';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
+import { Textarea } from './ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import Swal from 'sweetalert2';
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwgOMnVkWK5q3Cavb3o-_okrpK0P5qqngA8r1JsMtv56aGxvb7wjRYOBQkVfSyXP-fIHA/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzFtZ0FEN-ljWl4EYEpIHQcy6AgCFxfGVJT0m6izM2hxY4YiRjozmrIMR2GhJrW4upWYA/exec';
 
 interface CartModalProps {
   open: boolean;
@@ -22,9 +23,16 @@ interface CartModalProps {
 export function CartModal({ open, onClose }: CartModalProps) {
   const { cart, removeFromCart, updateQuantity, cartTotal, clearCart } = useCart();
   const { toast } = useToast();
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
+  const [formData, setFormData] = useState({ 
+    name: '', 
+    email: '', 
+    phone: '', 
+    address: '', 
+    note: '' 
+  });
   const [lastRequestTime, setLastRequestTime] = useState(0);
 
+  // Validation Logic
   const isValidName = formData.name.trim().length >= 3 && /^[a-zA-Z\s.'-]+$/.test(formData.name);
   const isValidEmail = /^[a-z0-9][a-z0-9._]*[a-z0-9]@gmail\.com$/i.test(formData.email);
   const indonesiaPhoneRegex = /^(?:(?:\+62|62|0)(?:\d{9,13}))$/;
@@ -32,6 +40,10 @@ export function CartModal({ open, onClose }: CartModalProps) {
   const isValidPhone = indonesiaPhoneRegex.test(cleanPhone) && 
                       (cleanPhone.startsWith('08') || cleanPhone.startsWith('+628') || cleanPhone.startsWith('628')) &&
                       cleanPhone.length >= 10 && cleanPhone.length <= 15;
+  const isValidAddress = formData.address.trim().length >= 10 && formData.address.length <= 500;
+  const isValidNote = formData.note.length <= 200;
+
+  const isFormValid = isValidName && isValidEmail && isValidPhone && isValidAddress && isValidNote;
 
   const formatPhoneNumber = (phone: string) => {
     let cp = phone.replace(/[\s\-\(\)]/g, '');
@@ -54,7 +66,7 @@ export function CartModal({ open, onClose }: CartModalProps) {
       return;
     }
 
-    if (!isValidName || !isValidEmail || !isValidPhone) {
+    if (!isFormValid) {
       Swal.fire('Data Tidak Valid', 'Harap periksa kembali informasi pengiriman Anda.', 'error');
       return;
     }
@@ -72,7 +84,9 @@ export function CartModal({ open, onClose }: CartModalProps) {
         customer: {
           name: formData.name,
           email: formData.email,
-          phone: formatPhoneNumber(formData.phone)
+          phone: formatPhoneNumber(formData.phone),
+          address: formData.address,
+          note: formData.note
         },
         items: cart,
         totalAmount: cartTotal,
@@ -125,7 +139,7 @@ export function CartModal({ open, onClose }: CartModalProps) {
       if (result.success) {
         clearCart();
         onClose();
-        setFormData({ name: '', email: '', phone: '' });
+        setFormData({ name: '', email: '', phone: '', address: '', note: '' });
         Swal.fire({
           icon: 'success',
           title: 'Pembayaran Berhasil!',
@@ -190,41 +204,90 @@ export function CartModal({ open, onClose }: CartModalProps) {
                   <Truck size={18} className="text-primary" /> Informasi Pengiriman
                 </h3>
                 <div className="grid gap-4">
+                  {/* NAMA LENGKAP */}
                   <div className="space-y-1">
                     <Label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Nama Lengkap</Label>
                     <div className="relative">
                       <Input 
-                        placeholder="Adrian Obsidian" 
+                        placeholder="Nama Lengkap" 
                         className={cn("bg-white text-gray-900 h-11 pr-10 border-gray-200 focus:border-primary transition-all", formData.name && (isValidName ? "border-green-500" : "border-red-500"))}
                         value={formData.name}
                         onChange={(e) => setFormData({...formData, name: e.target.value})}
                       />
                       {formData.name && (isValidName ? <CheckCircle2 className="absolute right-3 top-3 text-green-500" size={18}/> : <XCircle className="absolute right-3 top-3 text-red-400" size={18}/>)}
                     </div>
+                    {formData.name && !isValidName && <p className="text-[10px] text-red-500 font-medium">Nama harus minimal 3 karakter</p>}
+                    {formData.name && isValidName && <p className="text-[10px] text-green-600 font-medium">✓ Nama valid</p>}
                   </div>
+
+                  {/* EMAIL */}
                   <div className="space-y-1">
                     <Label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Email (Gmail)</Label>
                     <div className="relative">
                       <Input 
                         type="email"
-                        placeholder="adrian@gmail.com" 
+                        placeholder="Email (Gmail)" 
                         className={cn("bg-white text-gray-900 h-11 pr-10 border-gray-200 focus:border-primary transition-all", formData.email && (isValidEmail ? "border-green-500" : "border-red-500"))}
                         value={formData.email}
                         onChange={(e) => setFormData({...formData, email: e.target.value})}
                       />
                       {formData.email && (isValidEmail ? <CheckCircle2 className="absolute right-3 top-3 text-green-500" size={18}/> : <XCircle className="absolute right-3 top-3 text-red-400" size={18}/>)}
                     </div>
+                    {formData.email && !isValidEmail && <p className="text-[10px] text-red-500 font-medium">Harus menggunakan email Gmail (@gmail.com)</p>}
+                    {formData.email && isValidEmail && <p className="text-[10px] text-green-600 font-medium">✓ Email Gmail valid</p>}
                   </div>
+
+                  {/* NO TELEPON */}
                   <div className="space-y-1">
                     <Label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">No. Telepon</Label>
                     <div className="relative">
                       <Input 
-                        placeholder="081234567890" 
+                        placeholder="No. Telepon (contoh: 081234567890)" 
                         className={cn("bg-white text-gray-900 h-11 pr-10 border-gray-200 focus:border-primary transition-all", formData.phone && (isValidPhone ? "border-green-500" : "border-red-500"))}
                         value={formData.phone}
                         onChange={(e) => setFormData({...formData, phone: e.target.value})}
                       />
                       {formData.phone && (isValidPhone ? <CheckCircle2 className="absolute right-3 top-3 text-green-500" size={18}/> : <XCircle className="absolute right-3 top-3 text-red-400" size={18}/>)}
+                    </div>
+                    {formData.phone && !isValidPhone && <p className="text-[10px] text-red-500 font-medium">Nomor telepon tidak valid. Gunakan format Indonesia (08xx atau +62xx)</p>}
+                    {formData.phone && isValidPhone && <p className="text-[10px] text-green-600 font-medium">✓ Nomor telepon valid</p>}
+                  </div>
+
+                  {/* ALAMAT LENGKAP */}
+                  <div className="space-y-1">
+                    <Label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Alamat Lengkap</Label>
+                    <div className="relative">
+                      <Textarea 
+                        placeholder="Alamat Lengkap (Jalan, RT/RW, Kelurahan, Kecamatan, Kota, Kode Pos)" 
+                        className={cn("bg-white text-gray-900 min-h-[100px] border-gray-200 focus:border-primary transition-all", formData.address && (isValidAddress ? "border-green-500" : "border-red-500"))}
+                        value={formData.address}
+                        onChange={(e) => setFormData({...formData, address: e.target.value})}
+                      />
+                    </div>
+                    <div className="flex justify-between items-center mt-1">
+                      {formData.address && !isValidAddress && <p className="text-[10px] text-red-500 font-medium">Alamat harus minimal 10 karakter dan maksimal 500 karakter</p>}
+                      {formData.address && isValidAddress && <p className="text-[10px] text-green-600 font-medium">✓ Alamat valid</p>}
+                      <p className={cn("text-[10px] font-bold", formData.address.length > 500 ? "text-red-500" : "text-gray-400")}>
+                        {formData.address.length} / 500 karakter
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* CATATAN TAMBAHAN */}
+                  <div className="space-y-1">
+                    <Label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Catatan Tambahan (Opsional)</Label>
+                    <div className="relative">
+                      <Textarea 
+                        placeholder="Catatan Tambahan (Opsional) - Contoh: Warna, Ukuran, Pesan Khusus, dll" 
+                        className={cn("bg-white text-gray-900 min-h-[60px] border-gray-200 focus:border-primary transition-all", formData.note.length > 200 ? "border-red-500" : "border-gray-200")}
+                        value={formData.note}
+                        onChange={(e) => setFormData({...formData, note: e.target.value})}
+                      />
+                    </div>
+                    <div className="flex justify-end mt-1">
+                      <p className={cn("text-[10px] font-bold", formData.note.length > 200 ? "text-red-500" : "text-gray-400")}>
+                        {formData.note.length} / 200 karakter
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -244,6 +307,7 @@ export function CartModal({ open, onClose }: CartModalProps) {
                 size="lg" 
                 className="flex-1 h-14 text-lg font-bold bg-gradient-to-r from-green-600 to-green-500 hover:opacity-90 transition-all rounded-2xl group shadow-lg shadow-green-200" 
                 onClick={handleCheckout}
+                disabled={!isFormValid}
               >
                 Checkout Sekarang
                 <CreditCard className="ml-2 group-hover:translate-x-1 transition-transform" />
