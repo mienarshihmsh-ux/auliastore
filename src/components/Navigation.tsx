@@ -36,7 +36,7 @@ export function Navigation({ activePage, setActivePage, onOpenCart, storeName }:
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
         <button 
-          className="md:hidden p-2 text-gray-800"
+          className="md:hidden p-2 text-gray-800 hover:text-[#667eea] transition-colors"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -55,12 +55,15 @@ export function Navigation({ activePage, setActivePage, onOpenCart, storeName }:
               key={link.id}
               onClick={() => handleNavClick(link.id)}
               className={cn(
-                "flex items-center gap-2 font-semibold transition-colors hover:text-[#667eea]",
+                "flex items-center gap-2 font-semibold transition-all hover:text-[#667eea] relative py-2",
                 activePage === link.id ? "text-[#667eea]" : "text-gray-700"
               )}
             >
               <link.icon size={18} />
               {link.label}
+              {activePage === link.id && (
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#667eea] rounded-full" />
+              )}
             </button>
           ))}
         </div>
@@ -78,22 +81,35 @@ export function Navigation({ activePage, setActivePage, onOpenCart, storeName }:
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 top-20 bg-black/20 backdrop-blur-sm z-40 md:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      {/* Mobile Menu Panel */}
       <div className={cn(
-        "fixed inset-0 top-20 bg-white z-40 md:hidden transition-transform duration-300",
+        "fixed inset-y-0 left-0 top-20 w-[280px] bg-white z-50 md:hidden transition-transform duration-300 ease-in-out border-r border-gray-100 shadow-xl",
         isOpen ? "translate-x-0" : "-translate-x-full"
       )}>
-        <div className="flex flex-col p-6 gap-4">
+        <div className="flex flex-col p-4 gap-2">
           {navLinks.map((link) => (
             <button
               key={link.id}
               onClick={() => handleNavClick(link.id)}
               className={cn(
-                "flex items-center gap-4 text-lg font-semibold p-4 rounded-xl transition-all",
-                activePage === link.id ? "text-[#667eea] bg-blue-50" : "text-gray-700"
+                "flex items-center gap-4 text-base font-semibold p-4 rounded-xl transition-all duration-200 w-full text-left",
+                activePage === link.id 
+                  ? "text-[#667eea] bg-blue-50 shadow-sm" 
+                  : "text-gray-700 hover:bg-gray-50 hover:text-[#667eea]"
               )}
             >
-              <link.icon size={22} />
+              <link.icon size={20} className={cn(
+                "transition-colors",
+                activePage === link.id ? "text-[#667eea]" : "text-gray-400 group-hover:text-[#667eea]"
+              )} />
               {link.label}
             </button>
           ))}
