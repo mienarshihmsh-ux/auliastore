@@ -23,7 +23,7 @@ export default function RootLayout({
         <Script 
           src="https://app.sandbox.midtrans.com/snap/snap.js" 
           data-client-key="YOUR_MIDTRANS_CLIENT_KEY" 
-          strategy="beforeInteractive"
+          strategy="afterInteractive"
         />
       </head>
       <body className="font-body antialiased selection:bg-primary selection:text-primary-foreground">

@@ -32,9 +32,9 @@ export function CartModal({ open, onClose }: CartModalProps) {
   });
   const [lastRequestTime, setLastRequestTime] = useState(0);
 
-  // Validation Logic
+  // Validation Logic based on requirements
   const isValidName = formData.name.trim().length >= 3 && /^[a-zA-Z\s.'-]+$/.test(formData.name);
-  const isValidEmail = /^[a-z0-9][a-z0-9._]*[a-z0-9]@gmail\.com$/i.test(formData.email);
+  const isValidEmail = /^[a-zA-Z0-9._%+-]+@gmail\.com$/i.test(formData.email);
   const indonesiaPhoneRegex = /^(?:(?:\+62|62|0)(?:\d{9,13}))$/;
   const cleanPhone = formData.phone.replace(/[\s\-\(\)]/g, '');
   const isValidPhone = indonesiaPhoneRegex.test(cleanPhone) && 
@@ -71,9 +71,15 @@ export function CartModal({ open, onClose }: CartModalProps) {
       return;
     }
 
+    // Check if Midtrans Snap is loaded
+    if (typeof window === 'undefined' || !(window as any).snap) {
+      Swal.fire('Error', 'Sistem pembayaran belum siap. Mohon refresh halaman atau tunggu sebentar.', 'error');
+      return;
+    }
+
     Swal.fire({
       title: 'Memproses...',
-      text: 'Mohon tunggu sebentar',
+      text: 'Menghubungkan ke sistem pembayaran',
       allowOutsideClick: false,
       didOpen: () => Swal.showLoading()
     });
@@ -105,18 +111,18 @@ export function CartModal({ open, onClose }: CartModalProps) {
       Swal.close();
 
       if (result.success && result.snapToken) {
-        // @ts-ignore
-        window.snap.pay(result.snapToken, {
+        (window as any).snap.pay(result.snapToken, {
           onSuccess: (r: any) => confirmPayment(r.order_id, r.transaction_id),
           onPending: () => Swal.fire('Menunggu', 'Silakan selesaikan pembayaran Anda', 'info'),
-          onError: () => Swal.fire('Pembayaran Gagal', 'Terjadi kesalahan saat pembayaran', 'error')
+          onError: () => Swal.fire('Pembayaran Gagal', 'Terjadi kesalahan saat pembayaran', 'error'),
+          onClose: () => toast({ title: "Pembayaran Dibatalkan", description: "Anda menutup jendela pembayaran." })
         });
       } else {
-        Swal.fire('Checkout Gagal', result.message || 'Terjadi kesalahan', 'error');
+        Swal.fire('Checkout Gagal', result.message || 'Terjadi kesalahan pada server', 'error');
       }
     } catch (error) {
       Swal.close();
-      Swal.fire('Error', 'Terjadi kesalahan saat checkout!', 'error');
+      Swal.fire('Error', 'Gagal menghubungi server. Periksa koneksi internet Anda.', 'error');
     }
   };
 
@@ -148,7 +154,7 @@ export function CartModal({ open, onClose }: CartModalProps) {
         });
       }
     } catch (e) {
-      Swal.fire('Error', 'Gagal konfirmasi pembayaran', 'error');
+      Swal.fire('Error', 'Gagal konfirmasi pembayaran ke sistem', 'error');
     }
   };
 
