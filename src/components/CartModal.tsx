@@ -142,10 +142,10 @@ export function CartModal({ open, onClose }: CartModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-2xl bg-white border-none p-0 overflow-hidden max-h-[90vh] flex flex-col [&>button]:text-gray-900 [&>button]:hover:bg-red-500 [&>button]:hover:text-white [&>button]:bg-gray-50 [&>button]:p-2 [&>button]:rounded-full [&>button]:top-4 [&>button]:right-4">
+      <DialogContent className="sm:max-w-2xl bg-white border-none p-0 overflow-hidden max-h-[90vh] flex flex-col [&>button]:text-gray-900 [&>button]:hover:bg-red-500 [&>button]:hover:text-white [&>button]:bg-gray-50 [&>button]:p-2 [&>button]:rounded-full [&>button]:top-4 [&>button]:right-4 transition-all duration-300">
         <DialogHeader className="p-6 border-b border-gray-100 bg-white">
           <DialogTitle className="text-2xl font-headline flex items-center gap-2 text-gray-800">
-            <ShoppingBag className="text-[#667eea]" /> Keranjang Belanja
+            <ShoppingBag className="text-primary" /> Keranjang Belanja
           </DialogTitle>
           <DialogDescription className="text-gray-500 text-left">
             Pilihan fashion terbaik siap Anda miliki.
@@ -159,19 +159,19 @@ export function CartModal({ open, onClose }: CartModalProps) {
                 <ShoppingBag size={40} />
               </div>
               <p className="text-gray-500 font-medium">Keranjang Anda kosong.</p>
-              <Button variant="outline" className="rounded-full border-[#667eea] text-[#667eea]" onClick={onClose}>Mulai Belanja</Button>
+              <Button variant="outline" className="rounded-full border-primary text-primary hover:bg-primary hover:text-white transition-all" onClick={onClose}>Mulai Belanja</Button>
             </div>
           ) : (
             <div className="space-y-6">
               <div className="space-y-4">
                 {cart.map((item) => (
-                  <div key={item.id} className="flex gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-100 group">
+                  <div key={item.id} className="flex gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-100 group hover:border-primary/20 transition-all">
                     <div className="relative h-20 w-20 bg-gray-200 rounded-xl overflow-hidden shrink-0">
-                      <img src={item.imageUrl} alt={item.name} className="object-cover h-full w-full" />
+                      <img src={item.imageUrl} alt={item.name} className="object-cover h-full w-full group-hover:scale-105 transition-transform" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <h4 className="font-bold truncate text-sm text-gray-800">{item.name}</h4>
-                      <p className="text-[#667eea] font-bold text-xs mt-1">Rp {formatPrice(item.price)}</p>
+                      <p className="text-primary font-bold text-xs mt-1">Rp {formatPrice(item.price)}</p>
                       <div className="flex items-center gap-3 mt-3">
                         <div className="flex items-center border border-gray-200 rounded-lg bg-white overflow-hidden">
                           <button className="p-1.5 hover:bg-gray-100 transition-colors text-gray-600" onClick={() => updateQuantity(item.id, -1)}><Minus size={12} /></button>
@@ -187,7 +187,7 @@ export function CartModal({ open, onClose }: CartModalProps) {
 
               <div className="p-6 bg-gradient-to-br from-gray-50 to-white rounded-3xl border border-gray-100 space-y-4 shadow-sm">
                 <h3 className="font-bold flex items-center gap-2 text-gray-800">
-                  <Truck size={18} className="text-[#667eea]" /> Informasi Pengiriman
+                  <Truck size={18} className="text-primary" /> Informasi Pengiriman
                 </h3>
                 <div className="grid gap-4">
                   <div className="space-y-1">
@@ -195,7 +195,7 @@ export function CartModal({ open, onClose }: CartModalProps) {
                     <div className="relative">
                       <Input 
                         placeholder="Adrian Obsidian" 
-                        className={cn("bg-white text-gray-900 h-11 pr-10 border-gray-200", formData.name && (isValidName ? "border-green-500" : "border-red-500"))}
+                        className={cn("bg-white text-gray-900 h-11 pr-10 border-gray-200 focus:border-primary transition-all", formData.name && (isValidName ? "border-green-500" : "border-red-500"))}
                         value={formData.name}
                         onChange={(e) => setFormData({...formData, name: e.target.value})}
                       />
@@ -208,7 +208,7 @@ export function CartModal({ open, onClose }: CartModalProps) {
                       <Input 
                         type="email"
                         placeholder="adrian@gmail.com" 
-                        className={cn("bg-white text-gray-900 h-11 pr-10 border-gray-200", formData.email && (isValidEmail ? "border-green-500" : "border-red-500"))}
+                        className={cn("bg-white text-gray-900 h-11 pr-10 border-gray-200 focus:border-primary transition-all", formData.email && (isValidEmail ? "border-green-500" : "border-red-500"))}
                         value={formData.email}
                         onChange={(e) => setFormData({...formData, email: e.target.value})}
                       />
@@ -220,7 +220,7 @@ export function CartModal({ open, onClose }: CartModalProps) {
                     <div className="relative">
                       <Input 
                         placeholder="081234567890" 
-                        className={cn("bg-white text-gray-900 h-11 pr-10 border-gray-200", formData.phone && (isValidPhone ? "border-green-500" : "border-red-500"))}
+                        className={cn("bg-white text-gray-900 h-11 pr-10 border-gray-200 focus:border-primary transition-all", formData.phone && (isValidPhone ? "border-green-500" : "border-red-500"))}
                         value={formData.phone}
                         onChange={(e) => setFormData({...formData, phone: e.target.value})}
                       />
@@ -237,12 +237,12 @@ export function CartModal({ open, onClose }: CartModalProps) {
           <div className="p-6 bg-white border-t border-gray-100">
             <div className="flex justify-between items-center mb-6">
               <span className="text-gray-400 font-bold uppercase tracking-widest text-xs">Total Pembayaran</span>
-              <span className="text-2xl font-headline font-bold text-[#667eea]">Rp {formatPrice(cartTotal)}</span>
+              <span className="text-2xl font-headline font-bold text-primary">Rp {formatPrice(cartTotal)}</span>
             </div>
             <div className="flex flex-col md:flex-row gap-3">
               <Button 
                 size="lg" 
-                className="flex-1 h-14 text-lg font-bold bg-gradient-to-r from-[#27ae60] to-[#2ecc71] hover:opacity-90 transition-all rounded-2xl group shadow-lg shadow-green-200" 
+                className="flex-1 h-14 text-lg font-bold bg-gradient-to-r from-green-600 to-green-500 hover:opacity-90 transition-all rounded-2xl group shadow-lg shadow-green-200" 
                 onClick={handleCheckout}
               >
                 Checkout Sekarang
