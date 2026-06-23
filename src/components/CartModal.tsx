@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState } from 'react';
@@ -42,6 +43,7 @@ export function CartModal({ open, onClose }: CartModalProps) {
   const isValidAddress = formData.address.trim().length >= 10 && formData.address.length <= 500;
   const isValidNote = formData.note.length <= 200;
 
+  // The form is valid only if all required fields are valid
   const isFormValid = isValidName && isValidEmail && isValidPhone && isValidAddress && isValidNote;
 
   const formatPhoneNumber = (phone: string) => {
@@ -315,8 +317,9 @@ export function CartModal({ open, onClose }: CartModalProps) {
             <div className="flex flex-col md:flex-row gap-3">
               <Button 
                 size="lg" 
-                className="flex-1 h-14 text-lg font-bold bg-gradient-to-r from-green-600 to-green-500 hover:opacity-90 transition-all rounded-2xl group shadow-lg shadow-green-200" 
+                className="flex-1 h-14 text-lg font-bold bg-gradient-to-r from-green-600 to-green-500 hover:opacity-90 transition-all rounded-2xl group shadow-lg shadow-green-200 disabled:opacity-50 disabled:cursor-not-allowed" 
                 onClick={handleCheckout}
+                disabled={!isFormValid}
               >
                 Checkout Sekarang
                 <CreditCard className="ml-2 group-hover:translate-x-1 transition-transform" />
