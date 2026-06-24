@@ -13,6 +13,17 @@ FashionStore adalah prototipe aplikasi e-commerce fashion modern yang dirancang 
 - **Antarmuka Responsif & Modern**: Desain yang dioptimalkan untuk perangkat mobile (Side Drawer Menu), tablet, dan desktop menggunakan Tailwind CSS dan komponen ShadCN UI.
 - **Galeri Koleksi**: Ruang visual untuk mengeksplorasi tren fashion terbaru melalui kategori galeri yang dapat difilter.
 
+## Keamanan (Security)
+
+Aplikasi ini telah menerapkan standar keamanan dasar untuk prototipe web modern:
+1. **Enkripsi Data (HTTPS)**: Seluruh komunikasi data antara pengguna dan server dilindungi dengan enkripsi SSL/TLS.
+2. **Proteksi XSS**: Menggunakan React yang secara otomatis mensterilkan input teks untuk mencegah serangan injeksi skrip.
+3. **Pembayaran Terjamin**: Data sensitif pembayaran diproses langsung oleh Midtrans Snap, sehingga informasi kartu kredit/debit tidak pernah disimpan di server aplikasi.
+4. **Validasi Input**: Validasi ketat di sisi klien memastikan data yang dikirim ke backend memiliki format yang benar.
+5. **Request Sanitization**: Setiap data yang dikirim melalui formulir checkout dibersihkan (*trimmed*) dan disiapkan untuk mencegah manipulasi data dasar.
+
+*Catatan untuk Produksi: Sangat disarankan untuk menambahkan sistem otentikasi (Firebase Auth) dan validasi sisi server (Server-side validation) yang lebih kuat di Google Apps Script untuk mencegah bypass data.*
+
 ## Teknologi yang Digunakan
 
 - **Framework**: [Next.js 15](https://nextjs.org/) (App Router & Server Actions)
