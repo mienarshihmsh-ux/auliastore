@@ -6,7 +6,7 @@ import { CartProvider } from '@/components/CartContext';
 import { Navigation, PageView } from '@/components/Navigation';
 import { HomeView, ProductsView, GalleryView, AboutView, ContactView } from '@/components/Views';
 import { CartModal } from '@/components/CartModal';
-import { Instagram, Facebook, Youtube, Package } from 'lucide-react';
+import { Instagram, Facebook, Youtube } from 'lucide-react';
 import { FooterData } from '@/lib/types';
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzFtZ0FEN-ljWl4EYEpIHQcy6AgCFxfGVJT0m6izM2hxY4YiRjozmrIMR2GhJrW4upWYA/exec';
@@ -68,7 +68,7 @@ export default function FashionStoreApp() {
           <div className="container mx-auto max-w-7xl">
             <div className="flex flex-col items-center text-center space-y-8">
               <h3 className="text-3xl font-headline font-bold flex items-center gap-3">
-                <Package className="text-[#667eea]" /> {footer.storeName}
+                {footer.storeName}
               </h3>
               
               <div className="flex gap-6">
