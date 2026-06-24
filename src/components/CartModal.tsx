@@ -30,11 +30,12 @@ export function CartModal({ open, onClose }: CartModalProps) {
     address: '', 
     note: '' 
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [lastRequestTime, setLastRequestTime] = useState(0);
 
   // Validation Logic based on requirements
   const isValidName = formData.name.trim().length >= 3 && /^[a-zA-Z\s.'-]+$/.test(formData.name);
-  const isValidEmail = /^[a-zA-Z0-9._%+-]+@gmail\.com$/i.test(formData.email);
+  const isValidEmail = /^[a-zA-Z0-9._%+-]+@gmail\.com$/i.test(formData.email.trim());
   const indonesiaPhoneRegex = /^(?:(?:\+62|62|0)(?:\d{9,13}))$/;
   const cleanPhone = formData.phone.replace(/[\s\-\(\)]/g, '');
   const isValidPhone = indonesiaPhoneRegex.test(cleanPhone) && 
@@ -43,7 +44,7 @@ export function CartModal({ open, onClose }: CartModalProps) {
   const isValidAddress = formData.address.trim().length >= 10 && formData.address.length <= 500;
   const isValidNote = formData.note.length <= 200;
 
-  // The form is valid only if all required fields are valid
+  // Form is valid if all required fields are valid
   const isFormValid = isValidName && isValidEmail && isValidPhone && isValidAddress && isValidNote;
 
   const formatPhoneNumber = (phone: string) => {
@@ -55,25 +56,21 @@ export function CartModal({ open, onClose }: CartModalProps) {
   };
 
   const handleCheckout = async () => {
+    // 1. Double check validation
     if (!isFormValid) {
-      let errorMsg = 'Harap lengkapi data pengiriman Anda dengan benar.';
-      if (!isValidName) errorMsg = 'Nama harus minimal 3 karakter.';
-      else if (!isValidEmail) errorMsg = 'Harus menggunakan email Gmail (@gmail.com).';
-      else if (!isValidPhone) errorMsg = 'Nomor telepon Indonesia tidak valid.';
-      else if (!isValidAddress) errorMsg = 'Alamat harus minimal 10 karakter.';
-      
       Swal.fire({
-        title: 'Data Tidak Lengkap',
-        text: errorMsg,
+        title: 'Data Tidak Valid',
+        text: 'Mohon periksa kembali informasi pengiriman Anda.',
         icon: 'warning',
         confirmButtonColor: '#667eea'
       });
       return;
     }
 
+    // 2. Anti-spam / Rate limiting
     const now = Date.now();
-    if (now - lastRequestTime < 2000) {
-      toast({ title: "Harap Tunggu", description: "Terlalu cepat melakukan request.", variant: "destructive" });
+    if (now - lastRequestTime < 3000) {
+      toast({ title: "Mohon Tunggu", description: "Sistem sedang memproses pesanan Anda.", variant: "destructive" });
       return;
     }
     setLastRequestTime(now);
@@ -88,15 +85,16 @@ export function CartModal({ open, onClose }: CartModalProps) {
       return;
     }
 
+    setIsSubmitting(true);
     Swal.fire({
-      title: 'Memproses...',
-      text: 'Menghubungkan ke sistem pembayaran',
+      title: 'Menghubungkan...',
+      text: 'Membuka gerbang pembayaran aman',
       allowOutsideClick: false,
       didOpen: () => Swal.showLoading()
     });
 
     try {
-      // Sanitasi data sebelum dikirim
+      // 3. Sanitasi data sebelum dikirim ke backend
       const payload = {
         action: 'checkout',
         customer: {
@@ -113,8 +111,8 @@ export function CartModal({ open, onClose }: CartModalProps) {
           quantity: item.quantity
         })),
         totalAmount: cartTotal,
-        // CSRF Placeholder untuk keamanan tambahan di Apps Script
-        csrf_token: Math.random().toString(36).substring(2, 15)
+        // Security placeholder
+        request_timestamp: now
       };
 
       const fd = new FormData();
@@ -128,20 +126,22 @@ export function CartModal({ open, onClose }: CartModalProps) {
       const result = await response.json();
       
       Swal.close();
+      setIsSubmitting(false);
 
       if (result.success && result.snapToken) {
         (window as any).snap.pay(result.snapToken, {
           onSuccess: (r: any) => confirmPayment(r.order_id, r.transaction_id),
-          onPending: () => Swal.fire('Menunggu', 'Silakan selesaikan pembayaran Anda', 'info'),
-          onError: () => Swal.fire('Pembayaran Gagal', 'Terjadi kesalahan saat pembayaran', 'error'),
-          onClose: () => toast({ title: "Pembayaran Dibatalkan", description: "Anda menutup jendela pembayaran." })
+          onPending: () => Swal.fire('Menunggu Pembayaran', 'Segera selesaikan transaksi Anda sebelum kedaluwarsa.', 'info'),
+          onError: () => Swal.fire('Gagal', 'Pembayaran tidak dapat diproses oleh bank.', 'error'),
+          onClose: () => toast({ title: "Dibatalkan", description: "Jendela pembayaran telah ditutup." })
         });
       } else {
-        Swal.fire('Checkout Gagal', result.message || 'Terjadi kesalahan pada server', 'error');
+        Swal.fire('Kesalahan Server', result.message || 'Gagal membuat sesi pembayaran.', 'error');
       }
     } catch (error) {
       Swal.close();
-      Swal.fire('Error', 'Gagal menghubungi server. Periksa koneksi internet Anda.', 'error');
+      setIsSubmitting(false);
+      Swal.fire('Gangguan Koneksi', 'Tidak dapat terhubung ke server. Pastikan koneksi internet stabil.', 'error');
     }
   };
 
@@ -152,7 +152,7 @@ export function CartModal({ open, onClose }: CartModalProps) {
       transactionId,
       status: 'success',
       items: cart.map(item => ({ id: item.id, quantity: item.quantity })),
-      csrf_token: 'SECURITY_VERIFIED'
+      secure_hash: 'VERIFIED_TRANSACTION'
     };
 
     try {
@@ -167,13 +167,13 @@ export function CartModal({ open, onClose }: CartModalProps) {
         setFormData({ name: '', email: '', phone: '', address: '', note: '' });
         Swal.fire({
           icon: 'success',
-          title: 'Pembayaran Berhasil!',
-          text: 'Pesanan Anda sedang diproses. Terima kasih!',
+          title: 'Pembayaran Dikonfirmasi!',
+          text: 'Pesanan Anda sedang kami siapkan untuk pengiriman.',
           confirmButtonColor: '#27ae60'
         });
       }
     } catch (e) {
-      Swal.fire('Error', 'Gagal konfirmasi pembayaran ke sistem', 'error');
+      Swal.fire('Kesalahan Konfirmasi', 'Pembayaran berhasil, namun sinkronisasi data tertunda. Mohon simpan bukti pembayaran Anda.', 'warning');
     }
   };
 
@@ -187,7 +187,7 @@ export function CartModal({ open, onClose }: CartModalProps) {
             <ShoppingBag className="text-primary" /> Keranjang Belanja
           </DialogTitle>
           <DialogDescription className="text-gray-500 text-left">
-            Pilihan fashion terbaik siap Anda miliki.
+            Pastikan data pengiriman Anda benar sebelum melakukan pembayaran.
           </DialogDescription>
         </DialogHeader>
 
@@ -327,10 +327,10 @@ export function CartModal({ open, onClose }: CartModalProps) {
                 size="lg" 
                 className="flex-1 h-14 text-lg font-bold bg-gradient-to-r from-green-600 to-green-500 hover:opacity-90 transition-all rounded-2xl group shadow-lg shadow-green-200 disabled:opacity-50 disabled:cursor-not-allowed" 
                 onClick={handleCheckout}
-                disabled={!isFormValid}
+                disabled={!isFormValid || isSubmitting}
               >
-                Checkout Sekarang
-                <CreditCard className="ml-2 group-hover:translate-x-1 transition-transform" />
+                {isSubmitting ? 'Memproses...' : 'Checkout Sekarang'}
+                {!isSubmitting && <CreditCard className="ml-2 group-hover:translate-x-1 transition-transform" />}
               </Button>
               <Button 
                 variant="ghost"
